@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const grandTotalElement = document.getElementById("grand-total");
   const printBtn = document.getElementById("print-btn");
 
-  // --- LÓGICA PARA CAMPOS EDITABLES (Nombre, RUC y Ubicación) ---
+  // --- CAMPOS EDITABLES ---
   const allEditIcons = document.querySelectorAll(".edit-icon");
 
   allEditIcons.forEach((icon) => {
@@ -12,13 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const targetName = icon.dataset.target;
 
       if (targetName === "location") {
-        // Lógica especial para la ubicación con su botón de guardar
         document.getElementById("location-display").style.display = "none";
         document.getElementById("location-input").style.display = "inline";
         document.getElementById("save-location-btn").style.display = "inline";
         document.getElementById("location-input").focus();
       } else {
-        // Lógica general para nombre y RUC
         const displayEl = document.getElementById(`${targetName}-display`);
         const inputEl = document.getElementById(`${targetName}-input`);
         displayEl.style.display = "none";
@@ -28,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const setupInputSave = (targetName) => {
+  const setupInputSave = (targetName, storageKey) => {
     const displayEl = document.getElementById(`${targetName}-display`);
     const inputEl = document.getElementById(`${targetName}-input`);
 
@@ -38,32 +36,54 @@ document.addEventListener("DOMContentLoaded", () => {
         targetName === "ruc" ? `RUC: ${newValue}` : newValue;
       inputEl.style.display = "none";
       displayEl.style.display = "block";
+
+      // Guardar en localStorage
+      localStorage.setItem(storageKey, newValue);
     };
 
-    inputEl.addEventListener("blur", save); // Guardar cuando se pierde el foco
+    inputEl.addEventListener("blur", save);
     inputEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") save(); // Guardar al presionar Enter
+      if (e.key === "Enter") save();
     });
+
+    // Cargar valor desde localStorage
+    const savedValue = localStorage.getItem(storageKey);
+    if (savedValue) {
+      inputEl.value = savedValue;
+      displayEl.textContent =
+        targetName === "ruc" ? `RUC: ${savedValue}` : savedValue;
+    }
   };
 
-  setupInputSave("company-name");
-  setupInputSave("ruc");
+  setupInputSave("company-name", "companyName");
+  setupInputSave("ruc", "companyRuc");
 
-  // Lógica del botón de guardar para la ubicación
+  // --- UBICACIÓN ---
   const saveLocationBtn = document.getElementById("save-location-btn");
   saveLocationBtn.addEventListener("click", () => {
     const locationDisplay = document.getElementById("location-display");
     const locationInput = document.getElementById("location-input");
+
     locationDisplay.textContent = locationInput.value;
     locationDisplay.style.display = "inline";
     locationInput.style.display = "none";
     saveLocationBtn.style.display = "none";
+
+    localStorage.setItem("companyLocation", locationInput.value);
   });
+
   document.getElementById("location-input").addEventListener("keydown", (e) => {
     if (e.key === "Enter") saveLocationBtn.click();
   });
 
-  // --- LÓGICA PARA CARGAR EL LOGO ---
+  // Cargar ubicación desde localStorage
+  const savedLocation = localStorage.getItem("companyLocation");
+  if (savedLocation) {
+    document.getElementById("location-display").textContent = savedLocation;
+    document.getElementById("location-input").value = savedLocation;
+  }
+
+  // --- LOGO ---
   const logoUpload = document.getElementById("logo-upload");
   const companyLogo = document.getElementById("company-logo");
 
@@ -73,12 +93,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         companyLogo.src = e.target.result;
+
+        // Guardar logo en localStorage (Base64)
+        localStorage.setItem("companyLogo", e.target.result);
       };
       reader.readAsDataURL(file);
     }
   });
 
-  // --- Lógica de la tabla de items (sin cambios) ---
+  // Cargar logo desde localStorage
+  const savedLogo = localStorage.getItem("companyLogo");
+  if (savedLogo) {
+    companyLogo.src = savedLogo;
+  }
+
+  // --- TABLA DE ITEMS (sin cambios) ---
   let itemId = 0;
   const createNewItemRow = () => {
     itemId++;
@@ -128,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // --- Lógica de impresión (sin cambios) ---
+  // --- IMPRESIÓN ---
   const prepareForPrint = () => {
     const inputs = itemsTableBody.querySelectorAll("input");
     inputs.forEach((input) => {
