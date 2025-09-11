@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización JASA</title>
+    <link rel="stylesheet" href="jasa.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-header">
+            <div class="company-info">
+                <h1>JERELDIN AHMAD DIAB DIRALDO</h1>
+                <p>RUC: 1725762262001</p>
+            </div>
+            <div class="logo-container">
+                <img src="./jasalogo.png" alt="Logo de la Empresa" class="company-logo">
+            </div>
+            <div class="location-info">
+                <i class="fas fa-edit edit-icon"></i>
+                <span id="location-display">Manta, 2025</span>
+                <input type="text" id="location-input" value="Manta, 2025" style="display: none;">
+                <button id="save-location-btn" style="display: none;"><i class="fas fa-check"></i></button>
+            </div>
+        </div>
+        <section class="client-details">
+            <div class="form-group">
+                <label for="client-name">Estimado(s):</label>
+                <input type="text" id="client-name" placeholder="Nombre del cliente">
+            </div>
+            <div class="form-group">
+                <label for="client-ruc">RUC / CI:</label>
+                <input type="text" id="client-ruc" placeholder="RUC o Cédula">
+            </div>
+            <div class="form-group">
+                <label for="invoice-number">FACTURA:</label>
+                <input type="text" id="invoice-number" placeholder="Número de factura">
+            </div>
+            <div class="form-group">
+                <label for="client-email">CORREO:</label>
+                <input type="email" id="client-email" placeholder="Correo electrónico">
+            </div>
+        </section>
+
+        <p class="intro-text">De acuerdo a su solicitud, le hacemos llegar la cotización de los productos por usted
+            requeridos a continuación:</p>
+
+        <section class="items-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>CANT.</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>VALOR UNITARIO CON IVA</th>
+                        <th>VALOR TOTAL</th>
+                        <th>CARACTERÍSTICAS</th>
+                    </tr>
+                </thead>
+                <tbody id="items-table-body">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="total-label">TOTAL</td>
+                        <td id="grand-total" class="total-value">$ 0.00</td>
+                        <td colspan="1"></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button id="add-item-btn"><i class="fas fa-plus"></i> Agregar item</button>
+        </section>
+
+        <section class="notes">
+            <h2>NOTAS IMPORTANTES:</h2>
+            <div class="notes-content">
+                <div class="notes-left">
+                    <p><strong>LA COTIZACIÓN TIENE UNA VALIDEZ DE 15 DÍAS</strong></p>
+                    <p><strong>CONDICIONES DE VENTA:</strong> A CONVENIR</p>
+                    <p><strong>FECHA DE ENTREGA:</strong> 15 DÍAS A PARTIR DEL INGRESO A PRODUCCIÓN</p>
+                </div>
+                <div class="notes-right">
+                    <p><strong>FORMA DE PAGO:</strong> 50% INICIO DEL CONTRATO, 50% CONTRAENTREGA</p>
+                    <p><strong>100% CUANDO SE TRATA DE EXTRAS</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <button id="print-btn"><i class="fas fa-print"></i> Generar Cotización</button>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
