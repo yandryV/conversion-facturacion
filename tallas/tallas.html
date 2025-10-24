@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formato Clientes</title>
+    <link rel="stylesheet" href="tallas.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Formato Clientes</h1>
+
+        <div class="client-info">
+            <input type="text" id="clientName" placeholder="Nombre del Cliente">
+            <input type="text" id="teamName" placeholder="Equipo">
+        </div>
+
+        <div class="table-container">
+            <table id="orderTable">
+                <thead>
+                    <tr>
+                        <th>Talla Superior</th>
+                        <th>Talla Inferior</th>
+                        <th>Número en Camiseta</th>
+                        <th>Cantidad</th>
+                        <th>Nombre en Camiseta</th>
+                        <th>Hombre</th>
+                        <th>Mujer</th>
+                        <th>Observaciones</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las filas se agregarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" id="addRowBtn">Agregar Fila</button>
+            <button class="btn btn-success" id="generateExcelBtn">Generar Excel</button>
+        </div>
+
+        <div class="size-reference">
+            <h3>Referencia de Tallas</h3>
+            <ul>
+                <li><strong>NIÑOS:</strong></li>
+                <li>Talla 2 para niño de 1 a 2 años</li>
+                <li>Talla 4 para niño de 3 a 4 años</li>
+                <li>Talla 6 para niños de 5 a 6 años</li>
+                <li>Talla 8 para niños de 7 a 8 años</li>
+                <li>Talla 10 para niño de 9 a 10 años</li>
+                <li>Talla 12 para niños de 11 a 12 años</li>
+                <li>Talla 14 para niños 13 a 14 años</li>
+                <li><strong>ADULTOS:</strong></li>
+                <li>34 - XS</li>
+                <li>36 - S</li>
+                <li>38 - M</li>
+                <li>40 - L</li>
+                <li>42 - XL</li>
+            </ul>
+            <p><strong>Nota importante:</strong> Tomando en cuenta las características del niño. Si es muy alto o
+                gordito.</p>
+        </div>
+    </div>
+
+    <script src="tallas.js"></script>
+</body>
+
+</html>
