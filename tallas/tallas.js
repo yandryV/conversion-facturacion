@@ -104,17 +104,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const inputs = row.querySelectorAll("input, select");
       const rowData = [];
 
-      for (let i = 0; i < inputs.length - 1; i++) {
-        // -1 para excluir el botón de eliminar
-        if (inputs[i].type === "select-one") {
+      for (let i = 0; i < inputs.length; i++) {
+        if (
+          inputs[i].type === "text" ||
+          inputs[i].type === "number" ||
+          inputs[i].tagName === "SELECT"
+        ) {
           rowData.push(inputs[i].value);
-        } else {
-          rowData.push(inputs[i].value);
-        }
-
-        // Verificar si hay al menos un dato en esta fila
-        if (inputs[i].value.trim() !== "") {
-          hasData = true;
+          if (inputs[i].value.trim() !== "") hasData = true;
         }
       }
 
